@@ -8,6 +8,11 @@
     <name>BeanstalkClient</name>
     <description>BeanstalkClient is a Beanstalkd Java client</description>
     <url>https://github.com/jpeffer/JavaBeanstalkClient</url>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
     <licenses>
         <license>
             <name>GNU Lesser General Public License</name>
@@ -23,6 +28,7 @@
     <scm>
         <url>https://github.com/jpeffer/JavaBeanstalkClient</url>
         <connection>scm:git:https://github.com/jpeffer/JavaBeanstalkClient.git</connection>
+        <developerConnection>scm:git:https://github.com/jpeffer/JavaBeanstalkClient.git</developerConnection>
     </scm>
     <dependencies>
         <dependency>
