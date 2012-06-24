@@ -44,20 +44,17 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.3</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1.2</version>
                 <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>src</descriptorRef>
-                    </descriptorRefs>
-                    <tarLongFileMode>gnu</tarLongFileMode>
+                    <includePom>true</includePom>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
+                        <id>attach-sources</id>
                         <goals>
-                            <goal>single</goal>
+                            <goal>jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>
