@@ -22,20 +22,18 @@ along with JavaBeanstalkCLient.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+import com.surftools.BeanstalkClient.BeanstalkException;
+import com.surftools.BeanstalkClient.Client;
+import com.surftools.BeanstalkClient.Job;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
-import com.surftools.BeanstalkClient.BeanstalkException;
-import com.surftools.BeanstalkClient.Client;
-import com.surftools.BeanstalkClient.Job;
 
 public class ClientImplTest extends TestCase {
 
