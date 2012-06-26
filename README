@@ -9,7 +9,7 @@ To use, simply add the dependency to your POM:
 
 
 The following is the original README
----------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 This is JavaBeanstalkClient, a Java Client for beanstalkd
 
 See http://xph.us/software/beanstalkd for general info
