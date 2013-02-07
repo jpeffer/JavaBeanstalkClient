@@ -504,6 +504,22 @@ public class ClientImpl implements Client
         this.uniqueConnectionPerThread = uniqueConnectionPerThread;
     }
 
+    @Override
+    public boolean pauseTube(String tubeName, int pauseDelay) {
+        Request request = new Request(
+                "pause-tube " + tubeName + " " + pauseDelay,
+                "PAUSED",
+                null,
+                null,
+                ExpectedResponse.None);
+        Response response = getProtocolHandler().processRequest(request);
+        if(response != null && response.isMatchOk())
+        {
+            return true;
+        }
+        return false;
+    }
+
     public String getServerVersion()
     {
         Map<String, String> stats = stats();
