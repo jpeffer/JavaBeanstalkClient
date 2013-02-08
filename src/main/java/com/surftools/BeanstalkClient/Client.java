@@ -249,4 +249,12 @@ public interface Client
      * @param uniqueConnectionPerThread
      */
     public void setUniqueConnectionPerThread(boolean uniqueConnectionPerThread);
+
+    /**
+     *
+     * @param tubeName is the tube to pause
+     * @param pause is an integer number of seconds to wait before reserving any more
+    jobs from the queue
+     */
+    public boolean pauseTube(String tubeName, int pause);
 }

@@ -954,6 +954,43 @@ public class ClientImplTest extends TestCase {
 		
 		int watchCount = client.ignore(DEFAULT_TUBE);
 		assertEquals(-1, watchCount);
-	}	
+	}
+
+    public void testPauseTube() {
+
+        Client client = new ClientImpl(TEST_HOST, TEST_PORT);
+
+        Object[] tubeNames = pushWatchedTubes(client);
+        client.useTube((String) tubeNames[1]);
+
+        String srcString = "testPauseTube";
+        int delaySeconds = 0;
+        int tubeDelay = 3;
+
+        // producer
+        client.useTube((String) tubeNames[1]);
+        //now pause the tube
+        client.pauseTube((String) tubeNames[1], tubeDelay);
+
+        // note we adjust delay
+        long jobId = client.put(65536, delaySeconds, 120, srcString.getBytes());
+        assertTrue(jobId > 0);
+
+        // peekReady (but we still can't reserve because of tube delay)
+        Job job = client.peekReady();
+        assertNotNull(job);
+        assertEquals(jobId, job.getJobId());
+
+        //reserve with timeout a little less than tube pause time
+        job = client.reserve(tubeDelay -1);
+        assertNull(job);
+
+        //now wait for tube to become un-paused
+        job = client.reserve(2);
+        assertNotNull(job);
+        assertEquals(jobId, job.getJobId());
+
+        popWatchedTubes(client, tubeNames);
+    }
 
 }
