@@ -21,12 +21,11 @@ package com.surftools.BeanstalkClientImpl;
  * along with JavaBeanstalkCLient. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import java.util.List;
-import java.util.Map;
-
 import com.surftools.BeanstalkClient.BeanstalkException;
 import com.surftools.BeanstalkClient.Client;
 import com.surftools.BeanstalkClient.Job;
+import java.util.List;
+import java.util.Map;
 
 public class ClientImpl implements Client
 {
@@ -86,6 +85,7 @@ public class ClientImpl implements Client
     // ****************************************************************
     // Producer methods
     // ****************************************************************
+    @Override
     public long put(long priority, int delaySeconds, int timeToRun, byte[] data)
     {
         if(data == null)
@@ -122,6 +122,7 @@ public class ClientImpl implements Client
         return jobId;
     }
 
+    @Override
     public void useTube(String tubeName)
     {
         if(tubeName == null)
@@ -141,6 +142,7 @@ public class ClientImpl implements Client
     // Consumer methods
     //	job-related
     // ****************************************************************	
+    @Override
     public Job reserve(Integer timeoutSeconds)
     {
         Job job = null;
@@ -175,6 +177,7 @@ public class ClientImpl implements Client
         return job;
     }
 
+    @Override
     public boolean delete(long jobId)
     {
         Request request = new Request(
@@ -187,6 +190,7 @@ public class ClientImpl implements Client
         return response != null && response.isMatchOk();
     }
 
+    @Override
     public boolean release(long jobId, long priority, int delaySeconds)
     {
         Request request = new Request(
@@ -205,6 +209,7 @@ public class ClientImpl implements Client
         return response != null && response.isMatchOk();
     }
 
+    @Override
     public boolean bury(long jobId, long priority)
     {
         Request request = new Request(
@@ -217,6 +222,7 @@ public class ClientImpl implements Client
         return response != null && response.isMatchOk();
     }
 
+    @Override
     public boolean touch(long jobId)
     {
         Request request = new Request(
@@ -233,6 +239,7 @@ public class ClientImpl implements Client
     // Consumer methods
     //	tube-related
     // ****************************************************************
+    @Override
     public int watch(String tubeName)
     {
         if(tubeName == null)
@@ -249,6 +256,7 @@ public class ClientImpl implements Client
         return Integer.parseInt(response.getReponse());
     }
 
+    @Override
     public int ignore(String tubeName)
     {
         if(tubeName == null)
@@ -272,6 +280,7 @@ public class ClientImpl implements Client
     // Consumer methods
     //	peek-related
     // ****************************************************************
+    @Override
     public Job peek(long jobId)
     {
         Job job = null;
@@ -292,6 +301,7 @@ public class ClientImpl implements Client
         return job;
     }
 
+    @Override
     public Job peekBuried()
     {
         Job job = null;
@@ -312,6 +322,7 @@ public class ClientImpl implements Client
         return job;
     }
 
+    @Override
     public Job peekDelayed()
     {
         Job job = null;
@@ -332,6 +343,7 @@ public class ClientImpl implements Client
         return job;
     }
 
+    @Override
     public Job peekReady()
     {
         Job job = null;
@@ -352,6 +364,7 @@ public class ClientImpl implements Client
         return job;
     }
 
+    @Override
     public int kick(int count)
     {
         Request request = new Request(
@@ -373,6 +386,7 @@ public class ClientImpl implements Client
     //	stats-related
     // ****************************************************************
     @SuppressWarnings("unchecked")
+    @Override
     public Map<String, String> statsJob(long jobId)
     {
         Request request = new Request(
@@ -391,6 +405,7 @@ public class ClientImpl implements Client
     }
 
     @SuppressWarnings("unchecked")
+    @Override
     public Map<String, String> statsTube(String tubeName)
     {
         if(tubeName == null)
@@ -414,6 +429,7 @@ public class ClientImpl implements Client
     }
 
     @SuppressWarnings("unchecked")
+    @Override
     public Map<String, String> stats()
     {
         Request request = new Request(
@@ -432,6 +448,7 @@ public class ClientImpl implements Client
     }
 
     @SuppressWarnings("unchecked")
+    @Override
     public List<String> listTubes()
     {
         Request request = new Request(
@@ -449,6 +466,7 @@ public class ClientImpl implements Client
         return list;
     }
 
+    @Override
     public String listTubeUsed()
     {
         String tubeName = null;
@@ -467,6 +485,7 @@ public class ClientImpl implements Client
     }
 
     @SuppressWarnings("unchecked")
+    @Override
     public List<String> listTubesWatched()
     {
         Request request = new Request(
@@ -484,28 +503,33 @@ public class ClientImpl implements Client
         return list;
     }
 
+    @Override
     public String getClientVersion()
     {
         return VERSION;
     }
 
+    @Override
     public void close()
     {
         getProtocolHandler().close();
     }
 
+    @Override
     public boolean isUniqueConnectionPerThread()
     {
         return uniqueConnectionPerThread;
     }
 
+    @Override
     public void setUniqueConnectionPerThread(boolean uniqueConnectionPerThread)
     {
         this.uniqueConnectionPerThread = uniqueConnectionPerThread;
     }
 
     @Override
-    public boolean pauseTube(String tubeName, int pauseDelay) {
+    public boolean pauseTube(String tubeName, int pauseDelay)
+    {
         Request request = new Request(
                 "pause-tube " + tubeName + " " + pauseDelay,
                 "PAUSED",
@@ -520,6 +544,7 @@ public class ClientImpl implements Client
         return false;
     }
 
+    @Override
     public String getServerVersion()
     {
         Map<String, String> stats = stats();
